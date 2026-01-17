@@ -44,7 +44,6 @@ export const PaginaEditarDoctor = () => {
 
     return (
         <div id="pagina-editar-doctor">
-            <h1>Editar Doctor</h1>
             <FormularioEditarDoctor 
                 doctorInicial={doctor} 
                 alActualizar={alActualizarWrapper} 

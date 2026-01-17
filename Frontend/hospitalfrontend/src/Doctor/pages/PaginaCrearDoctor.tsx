@@ -18,7 +18,6 @@ export const PaginaCrearDoctor = () => {
 
     return (
         <div id="pagina-crear-doctor">
-            <h1>Crear Nuevo Doctor</h1>
             <FormularioDoctor alCrear={alCrearWrapper} />
         </div>
     );

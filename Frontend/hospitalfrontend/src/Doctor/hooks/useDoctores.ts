@@ -1,20 +1,17 @@
 import { useState, useEffect } from 'react';
 import type { Doctor } from '../types/tipos';
 
-const BASE_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : "http://localhost:8080/api";
-
 export const useDoctores = () => {
     const [doctores, setDoctores] = useState<Doctor[]>([]);
 
     const obtenerDoctores = async () => {
         try {
-            const respuesta = await fetch(`${BASE_URL}/doctores`);
+            const respuesta = await fetch("http://localhost:8080/api/doctores");
             if (respuesta.ok) {
                 const data = await respuesta.json();
                 setDoctores(data);
             } else {
-                const msg = await respuesta.text();
-                console.error("Error al obtener doctores:", respuesta.status, msg);
+                console.error("Error al obtener doctores");
             }
         } catch (error) {
             console.error("Error de conexión:", error);
@@ -39,7 +36,7 @@ export const useDoctores = () => {
 
     const crearDoctor = async (nuevoDoctor: Doctor) => {
         try {
-            const respuesta = await fetch(`${BASE_URL}/doctores`, {
+            const respuesta = await fetch("http://localhost:8080/api/doctores", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -51,8 +48,7 @@ export const useDoctores = () => {
                 obtenerDoctores();
                 return true;
             } else {
-                const msg = await respuesta.text();
-                console.error("Error al crear doctor:", respuesta.status, msg);
+                console.error("Error al crear doctor");
                 return false;
             }
         } catch (error) {
@@ -63,7 +59,7 @@ export const useDoctores = () => {
 
     const actualizarDoctor = async (id: number, doctorActualizado: Doctor) => {
         try {
-            const respuesta = await fetch(`${BASE_URL}/doctores/${id}`, {
+            const respuesta = await fetch(`http://localhost:8080/api/doctores/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -75,8 +71,7 @@ export const useDoctores = () => {
                 obtenerDoctores();
                 return true;
             } else {
-                const msg = await respuesta.text();
-                console.error("Error al actualizar doctor:", respuesta.status, msg);
+                console.error("Error al actualizar doctor");
                 return false;
             }
         } catch (error) {
@@ -87,7 +82,7 @@ export const useDoctores = () => {
 
     const eliminarDoctor = async (id: number) => {
         try {
-            const respuesta = await fetch(`${BASE_URL}/doctores/${id}`, {
+            const respuesta = await fetch(`http://localhost:8080/api/doctores/${id}`, {
                 method: "DELETE"
             });
 
@@ -95,14 +90,11 @@ export const useDoctores = () => {
                 obtenerDoctores();
                 return true;
             } else {
-                const msg = await respuesta.text();
-                console.error("Error al eliminar doctor:", respuesta.status, msg);
-                alert("No se pudo eliminar el doctor. Detalle: " + msg || "Revisa si tiene registros asociados.");
+                console.error("Error al eliminar doctor");
                 return false;
             }
         } catch (error) {
             console.error("Error de conexión:", error);
-            alert("Error de conexión al eliminar doctor");
             return false;
         }
     };
