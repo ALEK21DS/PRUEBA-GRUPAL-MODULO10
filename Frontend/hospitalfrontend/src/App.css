@@ -1,42 +1,142 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Reset básico */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar */
+nav {
+  background-color: #2c3e50; /* Solid Dark Blue */
+  padding: 1rem 2rem !important;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+nav a:hover, nav a.active {
+  background-color: #34495e; /* Lighter Blue for hover */
+}
+
+/* Contenedor Principal */
+.contenido-pagina {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+h1, h2, h3 {
+  color: #2c3e50;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Formulario */
+#contenedor-formulario {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#form-consulta {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+#form-consulta label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #555;
 }
 
-.card {
-  padding: 2em;
+#form-consulta input, 
+#form-consulta select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
 }
 
-.read-the-docs {
-  color: #888;
+#form-consulta input:focus, 
+#form-consulta select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+#btn-guardar {
+  background-color: #27ae60; /* Solid Green */
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+#btn-guardar:hover {
+  background-color: #219150;
+}
+
+/* Tabla */
+#contenedor-lista {
+  overflow-x: auto;
+}
+
+#tabla-consultas {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
+}
+
+#tabla-consultas th, 
+#tabla-consultas td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#tabla-consultas th {
+  background-color: #3498db; /* Solid Blue */
+  color: white;
+  font-weight: 600;
+}
+
+#tabla-consultas tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Mensajes */
+p {
+  text-align: center;
+  color: #777;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #eee;
+  margin: 20px 0;
 }
