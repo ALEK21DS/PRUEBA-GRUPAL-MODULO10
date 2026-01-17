@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import type { Consulta, Doctor, Paciente } from '../types/tipos';
+import type { Consulta, Paciente } from '../types/tipos';
+import { useDoctores } from '../../Doctor/hooks/useDoctores';
 
-// Datos quemados para los dropdowns
-const listaDoctores: Doctor[] = [
-    { idDoctor: 1, nombre: "Gregory", apellido: "House" },
-    { idDoctor: 2, nombre: "Stephen", apellido: "Strange" },
-    { idDoctor: 3, nombre: "Meredith", apellido: "Grey" }
-];
-
+// Datos quemados para los dropdowns (Pacientes se mantiene por ahora)
 const listaPacientes: Paciente[] = [
     { idPaciente: 1, nombre: "John", apellido: "Doe" },
     { idPaciente: 2, nombre: "Jane", apellido: "Smith" },
@@ -25,6 +20,9 @@ export const FormularioConsulta = ({ alCrear }: Props) => {
     const [idDoctorSeleccionado, setIdDoctorSeleccionado] = useState<number>(0);
     const [idPacienteSeleccionado, setIdPacienteSeleccionado] = useState<number>(0);
 
+    // Hook para obtener doctores
+    const { doctores } = useDoctores();
+
     const manejarEnvio = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -34,22 +32,26 @@ export const FormularioConsulta = ({ alCrear }: Props) => {
             return;
         }
 
-        // Buscar objetos completos (aunque el backend solo necesite ID a veces, mandamos estructura)
-        const doc = listaDoctores.find(d => d.idDoctor === Number(idDoctorSeleccionado));
+        // Buscar objetos completos
+        // Usamos 'doctores' que viene del hook en lugar de la lista quemada
+        const doc = doctores.find(d => d.idDoctor === Number(idDoctorSeleccionado));
         const pac = listaPacientes.find(p => p.idPaciente === Number(idPacienteSeleccionado));
 
         if (doc && pac) {
             const nuevaConsulta: Consulta = {
-                fechaConsulta: fecha, // Formato debe ser compatible con LocalDateTime
+                fechaConsulta: fecha,
                 motivoConsulta: motivo,
-                doctor: doc,
+                doctor: {
+                    idDoctor: doc.idDoctor!,
+                    nombre: doc.nombre,
+                    apellido: doc.apellido
+                },
                 paciente: pac
             };
 
             const exito = await alCrear(nuevaConsulta);
             if (exito) {
                 alert("Consulta creada correctamente");
-                // Limpiar form
                 setMotivo("");
                 setFecha("");
             }
@@ -91,7 +93,7 @@ export const FormularioConsulta = ({ alCrear }: Props) => {
                         id="select-doctor"
                     >
                         <option value={0}>-- Seleccione un Doctor --</option>
-                        {listaDoctores.map(doc => (
+                        {doctores.map(doc => (
                             <option key={doc.idDoctor} value={doc.idDoctor}>
                                 {doc.nombre} {doc.apellido}
                             </option>
