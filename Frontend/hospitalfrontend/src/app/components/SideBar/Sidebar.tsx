@@ -1,11 +1,10 @@
 import type { FC } from "react";
+import { Hospital } from "lucide-react";
 import "./sytles.css";
-import { LayoutDashboard, Stethoscope, Hospital } from "lucide-react";
 
 type MenuItem = {
   id: string;
   label: string;
-  icon: FC<{ size?: number }>;
 };
 
 interface SidebarProps {
@@ -13,15 +12,16 @@ interface SidebarProps {
   onPageChange: (pageId: string) => void;
 }
 
-const menuItems: MenuItem[] = [
-  { id: "consultas", label: "Consultas", icon: LayoutDashboard },
-  { id: "gestionar-doctores", label: "Gestionar Doctores", icon: Stethoscope },
+const menuItems = [
+  { id: "consulta-listado", label: "Listado Consultas" },
+  { id: "consulta-crear", label: "Crear Consulta" },
+  { id: "doctor-listado", label: "Listado Doctores" },
+  { id: "doctor-crear", label: "Crear Doctor" },
 ];
 
 const Sidebar: FC<SidebarProps> = ({ currentPage, onPageChange }) => {
   return (
     <aside className="sidebar">
-      {/* Header con logo */}
       <div className="sidebar-header">
         <div className="logo">
           <div className="logo-icon">
@@ -31,24 +31,16 @@ const Sidebar: FC<SidebarProps> = ({ currentPage, onPageChange }) => {
         </div>
       </div>
 
-      {/* Navegación */}
       <nav className="sidebar-nav">
-        <div className="nav-section">
-          <span className="nav-section-title">Menú Principal</span>
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <button
-                key={item.id}
-                className={`nav-item ${currentPage === item.id ? "active" : ""}`}
-                onClick={() => onPageChange(item.id)}
-              >
-                <Icon size={20} />
-                <span>{item.label}</span>
-              </button>
-            );
-          })}
-        </div>
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            className={`nav-item ${currentPage === item.id ? "active" : ""}`}
+            onClick={() => onPageChange(item.id)}
+          >
+            <span>{item.label}</span>
+          </button>
+        ))}
       </nav>
     </aside>
   );
