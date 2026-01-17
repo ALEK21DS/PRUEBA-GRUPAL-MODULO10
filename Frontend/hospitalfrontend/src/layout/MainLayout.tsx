@@ -9,18 +9,28 @@ const MainLayout: FC = () => {
   // Determinar qué botón está activo según la ruta
   let currentPage = "";
   if (location.pathname.includes("/consulta/listado")) {
-    currentPage = "listado";
+    currentPage = "consulta-listado";
   } else if (location.pathname.includes("/consulta/crear")) {
-    currentPage = "crear";
+    currentPage = "consulta-crear";
+  } else if (location.pathname.includes("/doctor/listado")) {
+    currentPage = "doctor-listado";
+  } else if (location.pathname.includes("/doctor/crear")) {
+    currentPage = "doctor-crear";
   }
 
   const handlePageChange = (pageId: string) => {
     switch (pageId) {
-      case "listado":
+      case "consulta-listado":
         navigate("/consulta/listado");
         break;
-      case "crear":
+      case "consulta-crear":
         navigate("/consulta/crear");
+        break;
+      case "doctor-listado":
+        navigate("/doctor/listado");
+        break;
+      case "doctor-crear":
+        navigate("/doctor/crear");
         break;
       default:
         break;

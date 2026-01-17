@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { LayoutDashboard, Stethoscope, Hospital } from "lucide-react";
+import { Hospital } from "lucide-react";
 import "./sytles.css";
 
 type MenuItem = {
@@ -13,8 +13,10 @@ interface SidebarProps {
 }
 
 const menuItems = [
-  { id: "listado", label: "Listado Consultas" },
-  { id: "crear", label: "Crear Consulta" },
+  { id: "consulta-listado", label: "Listado Consultas" },
+  { id: "consulta-crear", label: "Crear Consulta" },
+  { id: "doctor-listado", label: "Listado Doctores" },
+  { id: "doctor-crear", label: "Crear Doctor" },
 ];
 
 const Sidebar: FC<SidebarProps> = ({ currentPage, onPageChange }) => {
