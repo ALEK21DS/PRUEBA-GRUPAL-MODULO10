@@ -16,6 +16,8 @@ const MainLayout: FC = () => {
     currentPage = "doctor-listado";
   } else if (location.pathname.includes("/doctor/crear")) {
     currentPage = "doctor-crear";
+  } else if (location.pathname.includes("/doctor/editar")) {
+    currentPage = "doctor-listado";
   }
 
   const handlePageChange = (pageId: string) => {

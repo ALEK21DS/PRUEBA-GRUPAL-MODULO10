@@ -4,6 +4,7 @@ import { PaginaListado } from "./consulta/pages/PaginaListado";
 import { PaginaCrear } from "./consulta/pages/PaginaCrear";
 import { PaginaCrearDoctor } from "./Doctor/pages/PaginaCrearDoctor";
 import { PaginaListadoDoctores } from "./Doctor/pages/PaginaListadoDoctores";
+import { PaginaEditarDoctor } from "./Doctor/pages/PaginaEditarDoctor";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="consulta/crear" element={<PaginaCrear />} />
           <Route path="doctor/crear" element={<PaginaCrearDoctor />} />
           <Route path="doctor/listado" element={<PaginaListadoDoctores />} />
+          <Route path="doctor/editar/:id" element={<PaginaEditarDoctor />} />
         </Route>
       </Routes>
     </BrowserRouter>
