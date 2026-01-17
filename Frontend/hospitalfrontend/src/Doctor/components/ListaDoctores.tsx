@@ -1,21 +1,31 @@
+import { useNavigate } from 'react-router-dom';
 import type { Doctor } from '../types/tipos';
 
 interface Props {
     doctores: Doctor[];
-    alEliminar?: (id: number) => Promise<boolean>;
+    alEliminar: (id: number) => Promise<boolean>;
 }
 
 export const ListaDoctores = ({ doctores, alEliminar }: Props) => {
+    const navigate = useNavigate();
 
     const manejarEliminar = async (id: number | undefined) => {
-        if (id && alEliminar) {
+        if (id) {
             const confirmar = window.confirm("¿Está seguro de eliminar este doctor?");
             if (confirmar) {
                 const exito = await alEliminar(id);
                 if (exito) {
                     alert("Doctor eliminado correctamente");
+                } else {
+                    alert("Error al eliminar doctor");
                 }
             }
+        }
+    };
+
+    const manejarEditar = (id: number | undefined) => {
+        if (id) {
+            navigate(`/doctor/editar/${id}`);
         }
     };
 
@@ -50,9 +60,31 @@ export const ListaDoctores = ({ doctores, alEliminar }: Props) => {
                                 <td>{doctor.especialidad?.nombreEspecialidad || 'Sin asignar'}</td>
                                 <td>
                                     <button 
+                                        onClick={() => manejarEditar(doctor.idDoctor)}
+                                        id={`btn-editar-${doctor.idDoctor}`}
+                                        style={{ 
+                                            backgroundColor: '#3b82f6', 
+                                            color: 'white', 
+                                            cursor: 'pointer',
+                                            marginRight: '5px',
+                                            padding: '5px 10px',
+                                            border: 'none',
+                                            borderRadius: '4px'
+                                        }}
+                                    >
+                                        Editar
+                                    </button>
+                                    <button 
                                         onClick={() => manejarEliminar(doctor.idDoctor)}
                                         id={`btn-eliminar-${doctor.idDoctor}`}
-                                        style={{ backgroundColor: 'red', color: 'white', cursor: 'pointer' }}
+                                        style={{ 
+                                            backgroundColor: '#ef4444', 
+                                            color: 'white', 
+                                            cursor: 'pointer',
+                                            padding: '5px 10px',
+                                            border: 'none',
+                                            borderRadius: '4px'
+                                        }}
                                     >
                                         Eliminar
                                     </button>
